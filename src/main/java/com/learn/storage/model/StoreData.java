@@ -18,7 +18,9 @@ public class StoreData {
 	private String title;
 	@Nonnull
 	private String text;
-
+        
+	public StoreData(){}
+	
 	public StoreData(String title, String text) {
 		super();
 		this.title = title;
