@@ -23,7 +23,13 @@ public class StoreDataApi {
 
 	@Autowired
 	private StoreDataDao dao;
+	
+	@GetMapping("isWorking")
+	public ResponseEntity<String> isWorking() {
+		return  ResponseEntity.ok("Running");
 
+	}
+	
 	@PostMapping("createData")
 	public ResponseEntity<StoreData> createData(@RequestParam String title, @RequestParam String text) {
 
