@@ -29,7 +29,11 @@ public class StoreDataApi {
 		return  ResponseEntity.ok("Running");
 
 	}
-	
+	@GetMapping("justTest")
+	public ResponseEntity<String> justTest() {
+		return  ResponseEntity.ok("Running");
+
+	}
 	@PostMapping("createData")
 	public ResponseEntity<StoreData> createData(@RequestParam String title, @RequestParam String text) {
 
