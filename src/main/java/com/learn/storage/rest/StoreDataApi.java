@@ -34,6 +34,13 @@ public class StoreDataApi {
 		return  ResponseEntity.ok("Running");
 
 	}
+	
+	@GetMapping("deleteAll")
+	public ResponseEntity<String> deleteAll() {
+		dao.deleteAll();
+		return  ResponseEntity.ok("Delete");
+
+	}
 	@PostMapping("createData")
 	public ResponseEntity<StoreData> createData(@RequestParam String title, @RequestParam String text) {
 
