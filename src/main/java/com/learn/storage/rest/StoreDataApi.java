@@ -49,7 +49,7 @@ public class StoreDataApi {
 		StoreData d = new StoreData(title, text);
 		StoreData save = dao.save(d);
 		
-		try (Jedis jedis = new Jedis("redis://red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
+		try (Jedis jedis = new Jedis("red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
  
 				
 				String cachedResponse = jedis.get(title);
@@ -66,7 +66,7 @@ public class StoreDataApi {
 
    @GetMapping("getRedis")
    public ResponseEntity<String> getRedis(@RequestParam String key) {
-			try (Jedis jedis = new Jedis("redis://red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
+			try (Jedis jedis = new Jedis("red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
 				String cachedResponse = jedis.get(key);
 				if(cachedResponse==null){
 					cachedResponse="";
