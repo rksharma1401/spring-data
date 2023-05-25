@@ -62,9 +62,22 @@ public class StoreDataApi {
  			}
 
 		return ResponseEntity.ok(save);
-
 	}
 
+   @GetMapping("getRedis")
+   public ResponseEntity<String> getRedis(@RequestParam String key) {
+			try (Jedis jedis = new Jedis("redis://red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
+				String cachedResponse = jedis.get(key);
+				if(cachedResponse==null){
+					cachedResponse="";
+				}
+				return ResponseEntity.ok(cachedResponse);
+ 			}catch (Exception e) {
+ 			}
+        return ResponseEntity.ok("NotFound");
+
+    }
+	
 	@GetMapping("getAll")
 	public @ResponseBody List<StoreData> getAllData() {
 
@@ -74,6 +87,8 @@ public class StoreDataApi {
 		return result;
 
 	}
+	
+	
 	
 	 
 }
