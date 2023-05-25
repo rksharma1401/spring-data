@@ -73,8 +73,9 @@ public class StoreDataApi {
 				}
 				return ResponseEntity.ok(cachedResponse);
  			}catch (Exception e) {
+				 return ResponseEntity.ok(e.getMessage());
  			}
-        return ResponseEntity.ok("NotFound");
+       
 
     }
 	
