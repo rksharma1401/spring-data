@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import redis.clients.jedis.Jedis;
+
 import com.learn.storage.dao.StoreDataDao;
 import com.learn.storage.model.StoreData;
 
@@ -46,6 +48,18 @@ public class StoreDataApi {
 
 		StoreData d = new StoreData(title, text);
 		StoreData save = dao.save(d);
+		
+		try (Jedis jedis = new Jedis("redis://red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
+ 
+				
+				String cachedResponse = jedis.get(title);
+				if(cachedResponse==null){
+					cachedResponse="";
+				}
+ 				jedis.set(title, cachedResponse+"\n"+ text);
+
+ 			}catch (Exception e) {
+ 			}
 
 		return ResponseEntity.ok(save);
 
@@ -60,4 +74,6 @@ public class StoreDataApi {
 		return result;
 
 	}
+	
+	 
 }
