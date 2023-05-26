@@ -25,7 +25,7 @@ import redis.clients.jedis.Jedis;
 @CrossOrigin
 public class StoreDataApi {
 
-	@Value("#{environment.PASSKEY}")
+	@Value("${PASSKEY}")
 	private String pass;
 	
 	@Autowired
