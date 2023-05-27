@@ -35,7 +35,7 @@ public class StoreDataApi {
 
 	@GetMapping("justTest")
 	public ResponseEntity<String> justTest() {
-		return ResponseEntity.ok("Running");
+		return ResponseEntity.ok("justTest");
 
 	}
 
