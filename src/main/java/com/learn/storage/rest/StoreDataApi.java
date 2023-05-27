@@ -1,9 +1,5 @@
 package com.learn.storage.rest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +12,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.storage.dao.StoreDataDao;
-import com.learn.storage.model.StoreData;
-
-import redis.clients.jedis.Jedis;
+import com.learn.storage.model.ListStoreMessage;
+import com.learn.storage.model.StoreMessage;
+import com.learn.storage.service.ParseApiService;
 
 @RestController
 @RequestMapping("storeDataApi")
@@ -27,83 +23,61 @@ public class StoreDataApi {
 
 	@Value("${PASSKEY}")
 	private String pass;
-	
+
 	@Autowired
 	private StoreDataDao dao;
-	
+
+	@Autowired
+	private ParseApiService parse;
+
 	@GetMapping("isWorking")
 	public ResponseEntity<String> isWorking() {
-		return  ResponseEntity.ok("Running");
+		return ResponseEntity.ok("Running");
 
 	}
+
 	@GetMapping("justTest")
 	public ResponseEntity<String> justTest() {
-		return  ResponseEntity.ok("Running");
+		return ResponseEntity.ok("Running");
 
 	}
-	
+
 	@GetMapping("deleteAll")
 	public ResponseEntity<String> deleteAll() {
 		dao.deleteAll();
-		return  ResponseEntity.ok("Delete");
+		return ResponseEntity.ok("Delete");
 
 	}
+
+	@SuppressWarnings("rawtypes")
 	@PostMapping("createData")
-	public ResponseEntity<StoreData> createData(@RequestParam String title, @RequestParam String text) {
+	public ResponseEntity createData(@RequestParam String title, @RequestParam String text) {
 
-		StoreData d = new StoreData(title, text);
-		StoreData save = dao.save(d);
-		
-		try (Jedis jedis = new Jedis("red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
- 
-				
-				String cachedResponse = jedis.get(title);
-				if(cachedResponse==null){
-					cachedResponse="";
-				}
- 				jedis.set(title, cachedResponse+"<br/> \n"+ text);
+		parse.save(new StoreMessage(title, text, null));
 
- 			}catch (Exception e) {
- 				e.printStackTrace();
- 			}
-
-		return ResponseEntity.ok(save);
+		return ResponseEntity.noContent().build();
 	}
 
-   @GetMapping("getRedis")
-   public ResponseEntity<String> getRedis(@RequestParam String key,@RequestParam String pass) {
-	   	
-	   		if(!pass.equals(this.pass)) {
-	   			return ResponseEntity.unprocessableEntity().build();
-	   		}
-			try (Jedis jedis = new Jedis("red-chno5tfdvk4n43b4pc3g", 6379,300000)) {
-				
-				String cachedResponse = jedis.get(key);
-				if(cachedResponse==null){
-					cachedResponse="";
-				}
-				return ResponseEntity.ok(cachedResponse);
- 			}catch (Exception e) {
-				 e.printStackTrace();
- 			}
-			return ResponseEntity.ok("some error occured");
-
-    }
-	
 	@GetMapping("getAll")
-	public @ResponseBody List<StoreData> getAllData(@RequestParam String pass) {
-		
-		if(!pass.equals(this.pass)) {
-   			return Collections.emptyList();
-   		}
-		List<StoreData> result = new ArrayList<>();
-		dao.findAll().forEach(result::add);
+	public @ResponseBody ListStoreMessage getAllData(@RequestParam String pass) {
 
-		return result;
+		if (!pass.equals(this.pass)) {
+			return null;
+		}
+
+		return parse.getAllData();
 
 	}
 	
-	
-	
-	 
+	@GetMapping("getData")
+	public @ResponseBody ListStoreMessage getData(@RequestParam String key,@RequestParam String pass) {
+
+		if (!pass.equals(this.pass)) {
+ 			return null;
+		}
+
+		return parse.getByName(key);
+
+	}
+
 }
