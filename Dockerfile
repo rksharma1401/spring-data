@@ -6,4 +6,4 @@ RUN mvn -f /home/app/pom.xml clean package
 FROM openjdk:17-alpine
 COPY --from=build /home/app/target/*.jar app.jar
 EXPOSE 10000 8080
-ENTRYPOINT ["java","-jar","/app.jar","--debug","--PASSKEY=${PASSKEYED}" ]
+ENTRYPOINT ["java","-jar","/app.jar","--debug","--PASSKEY=${PASSKEY_ED}" ,"--P_APP_ID={P_APP_ID_ED}" ,"--P_REST_KEY={P_REST_KEY_ED}","--PASS_URL={PASS_URL_ED}"]
