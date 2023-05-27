@@ -18,19 +18,20 @@ public class ParseApiService {
 	private String url;
 
 	public void save(StoreMessage message) {
+		System.out.println(url);
 		restTemplate.postForEntity(url, message, StoreMessage.class);
 	}
 
 	public ListStoreMessage getAllData() {
 		String message = "where={\"toDelete\":\"yes\"}";
-
+System.out.println(url);
 		return restTemplate.getForObject(url, ListStoreMessage.class, message);
 
 	}
 
 	public ListStoreMessage getByName(String key) {
 		String message = "where= {\"name\":\"" + key + ":}";
-
+System.out.println(url);
 		return restTemplate.getForObject(url, ListStoreMessage.class, message);
 
 	}
