@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.learn.storage.dao.StoreDataDao;
-import com.learn.storage.model.ListStoreMessage;
+ import com.learn.storage.model.ListStoreMessage;
 import com.learn.storage.model.StoreMessage;
 import com.learn.storage.service.ParseApiService;
 
@@ -23,9 +22,7 @@ public class StoreDataApi {
 
 	@Value("${PASSKEY}")
 	private String pass;
-
-	@Autowired
-	private StoreDataDao dao;
+  
 
 	@Autowired
 	private ParseApiService parse;
@@ -42,12 +39,7 @@ public class StoreDataApi {
 
 	}
 
-	@GetMapping("deleteAll")
-	public ResponseEntity<String> deleteAll() {
-		dao.deleteAll();
-		return ResponseEntity.ok("Delete");
-
-	}
+ 
 
 	@SuppressWarnings("rawtypes")
 	@PostMapping("createData")
