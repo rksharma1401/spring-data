@@ -18,7 +18,6 @@ public class ParseApiService {
 	private String url;
 
 	public void save(StoreMessage message) {
-		System.out.println(url);
 		restTemplate.postForEntity(url, message, StoreMessage.class);
 	}
 
