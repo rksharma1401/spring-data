@@ -53,11 +53,21 @@ public class StoreDataApi {
 	@GetMapping("getAll")
 	public @ResponseBody ListStoreMessage getAllData(@RequestParam String pass) {
 
+
 		if (!pass.equals(this.pass)) {
 			return null;
 		}
 
-		return parse.getAllData();
+		 ListStoreMessage allData = parse.getAllData();
+		 
+		 allData.results().sort((o1, o2) -> {
+			OffsetDateTime odt1 = OffsetDateTime.parse(o1.createdAt());
+			OffsetDateTime odt2 = OffsetDateTime.parse(o2.createdAt());
+			return odt1.compareTo(odt2);
+		});
+		 
+		 return allData;
+	
 
 	}
 	
