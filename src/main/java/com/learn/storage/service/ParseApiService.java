@@ -22,7 +22,7 @@ public class ParseApiService {
 	}
 
 	public ListStoreMessage getAllData() {
-		String message = "'limit=20000'";
+		String message = "order=createdAt";
 		return restTemplate.getForObject(url, ListStoreMessage.class, message);
 
 	}
