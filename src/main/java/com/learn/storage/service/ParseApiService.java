@@ -22,7 +22,7 @@ public class ParseApiService {
 	}
 
 	public ListStoreMessage getAllData() {
-		String message = "where={\"toDelete\":\"yes\"}";
+		String message = "'limit=200'";
 		return restTemplate.getForObject(url, ListStoreMessage.class, message);
 
 	}
