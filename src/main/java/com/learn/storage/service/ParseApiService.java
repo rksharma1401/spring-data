@@ -22,7 +22,7 @@ public class ParseApiService {
 	}
 
 	public ListStoreMessage getAllData() {
-		String message = "order=createdAt";
+		String message = "order=-createdAt";
 		return restTemplate.getForObject(url, ListStoreMessage.class, message);
 
 	}
