@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,7 +59,7 @@ public class StoreDataApi {
 		return ResponseEntity.noContent().build();
 	}
 
-	@GetMapping("getAll")
+	@GetMapping(value="getAll",produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ListStoreMessage getAllData(@RequestParam String pass) {
 
 
