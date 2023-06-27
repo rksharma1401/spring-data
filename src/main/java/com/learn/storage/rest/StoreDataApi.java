@@ -50,7 +50,7 @@ public class StoreDataApi {
 	public ResponseEntity createData(@RequestParam String title, @RequestParam String text) {
 
 		if(oldMessage.equals(text)) {
-			return ResponseEntity.accepted().build();
+			return ResponseEntity.noContent().build();
 		}
 		oldMessage=text;
 		parse.save(new StoreMessage(title, text, null));
