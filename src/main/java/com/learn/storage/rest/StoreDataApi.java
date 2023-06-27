@@ -43,10 +43,16 @@ public class StoreDataApi {
 
  
 
+	private String oldMessage="";
+	
 	@SuppressWarnings("rawtypes")
 	@PostMapping("createData")
 	public ResponseEntity createData(@RequestParam String title, @RequestParam String text) {
 
+		if(oldMessage.equals(text)) {
+			return ResponseEntity.accepted().build();
+		}
+		oldMessage=text;
 		parse.save(new StoreMessage(title, text, null));
 
 		return ResponseEntity.noContent().build();
