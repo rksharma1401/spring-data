@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>List Messages</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script>
+    	var responseList = {};
+ 		$(document).ready(function(){
+			
+		  $("#sendPost").click(function(){
+			var firstName=$("#firstName").val();  
+             
+			$.ajax({
+				url: '/storeDataApi/getAll?pass='+firstName,
+				type: 'GET',
+				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+				success: function (response) {
+                    responseList=response.results; 
+                    var dataString="";
+					$.each( responseList, function( index, value ) {
+ 		 				dataString+= 'date :'+ value.createdAt + ' , name :' + value.name + ' , content :'+value.message+ 					'<br/>' ;
+					});  
+			  		$("#mydiv").html(dataString);
+             
+                     
+
+				},
+				error: function () {
+					alert("error");
+				}
+			});
+		  }); 
+		  
+		});
+		</script>
+</head>
+<body>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<h1> Display Messages</h1> 
+	</div>
+	<div class="col-md-2">
+		 
+	</div>
+</div>
+ 
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="form-group">
+				<label for="firstName">FirstName:</label>
+				<input type="password" class="form-control" id="firstName" placeholder="Enter Pass">
+			  </div>
+              <button type="button" id="sendPost"   class="btn btn-default">Submit</button>
+	</div>
+	<div class="col-md-2"> 
+	</div>
+</div>
+
+</body>
+</html>
