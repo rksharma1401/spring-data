@@ -1,2 +1,2 @@
 # spring-data
-Demo Repo to store and get data from Spring
+Demo Repo to store and get data from Spring RestTemplate 
