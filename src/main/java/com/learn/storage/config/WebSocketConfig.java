@@ -26,7 +26,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         
         .setAllowedOriginPatterns("*") 
         // Enable SockJS fallback options
-        .withSockJS();
+        //.withSockJS()
+        ;
     }
 
 }
