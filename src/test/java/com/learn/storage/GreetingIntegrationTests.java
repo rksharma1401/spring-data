@@ -34,8 +34,8 @@ import com.learn.storage.model.StoreMessage;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GreetingIntegrationTests {
 
-	@Value(value="${local.server.port}")
-	private int port;
+//	@Value(value="${local.server.port}")
+	private int port=443;
 
 	private SockJsClient sockJsClient;
 
@@ -53,7 +53,7 @@ public class GreetingIntegrationTests {
 		this.stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 	}
 
-//	@Test
+	@Test
 	public void getGreeting() throws Exception {
 
 		final CountDownLatch latch = new CountDownLatch(1);
