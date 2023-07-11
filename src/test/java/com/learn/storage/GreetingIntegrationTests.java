@@ -22,9 +22,9 @@ import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.web.socket.WebSocketHttpHeaders;
+import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
-import org.springframework.web.socket.sockjs.client.SockJsClient;
 import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
@@ -32,12 +32,12 @@ import com.learn.storage.model.Response;
 import com.learn.storage.model.StoreMessage;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GreetingIntegrationTests {
+ class GreetingIntegrationTests {
 
-//	@Value(value="${local.server.port}")
-	private int port=443;
+ 	@Value(value="${local.server.port}")
+	private int port;
 
-	private SockJsClient sockJsClient;
+	private WebSocketClient websocketclient;
 
 	private WebSocketStompClient stompClient;
 
@@ -47,13 +47,13 @@ public class GreetingIntegrationTests {
 	public void setup() {
 		List<Transport> transports = new ArrayList<>();
 		transports.add(new WebSocketTransport(new StandardWebSocketClient()));
-		this.sockJsClient = new SockJsClient(transports);
+		this.websocketclient = new StandardWebSocketClient();
 
-		this.stompClient = new WebSocketStompClient(sockJsClient);
+		this.stompClient = new WebSocketStompClient(websocketclient);
 		this.stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 	}
 
-//	@Test
+ 	@Test
 	public void getGreeting() throws Exception {
 
 		final CountDownLatch latch = new CountDownLatch(1);
