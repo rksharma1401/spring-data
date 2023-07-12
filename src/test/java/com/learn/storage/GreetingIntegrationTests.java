@@ -1,5 +1,5 @@
 package com.learn.storage;
- 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -32,9 +32,9 @@ import com.learn.storage.model.Response;
 import com.learn.storage.model.StoreMessage;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
- class GreetingIntegrationTests {
+class GreetingIntegrationTests {
 
- 	@Value(value="${local.server.port}")
+	@Value(value = "${local.server.port}")
 	private int port;
 
 	private WebSocketClient websocketclient;
@@ -53,7 +53,7 @@ import com.learn.storage.model.StoreMessage;
 		this.stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 	}
 
- 	//@Test
+	@Test
 	public void getGreeting() throws Exception {
 
 		final CountDownLatch latch = new CountDownLatch(1);
@@ -83,7 +83,7 @@ import com.learn.storage.model.StoreMessage;
 					}
 				});
 				try {
-					session.send("/app/message", new StoreMessage("TestClient","Spring", null));
+					session.send("/app/message", new StoreMessage("TestClient", "Spring", null));
 				} catch (Throwable t) {
 					failure.set(t);
 					latch.countDown();
@@ -97,8 +97,7 @@ import com.learn.storage.model.StoreMessage;
 			if (failure.get() != null) {
 				throw new AssertionError("", failure.get());
 			}
-		}
-		else {
+		} else {
 			fail("Greeting not received");
 		}
 
