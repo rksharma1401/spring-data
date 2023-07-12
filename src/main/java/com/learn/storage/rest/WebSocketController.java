@@ -26,6 +26,6 @@ public class WebSocketController {
 	@CrossOrigin
 	public String sendString(String message) {
 		System.out.println("sendString->Received request for:- " + message);
-		return ("successfully got from :-  " + message);
+		return ("string :: successfully got from :-  " + message);
 	}
 }
