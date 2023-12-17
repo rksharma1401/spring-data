@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.learn</groupId>
 	<artifactId>spring-storage</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>spring-storage</name>
 	<description>Storag Api project for Spring Boot</description>
 	<properties>
