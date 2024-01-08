@@ -21,11 +21,13 @@ public class ParseApiService {
 		restTemplate.postForEntity(url, message, StoreMessage.class);
 	}
 
-	public ListStoreMessage getAllData() {
+	public ListStoreMessage getAllData(String skip) {
 		String message = "order=-createdAt";
-		return restTemplate.getForObject(url+"?"+message, ListStoreMessage.class);
-
-
+		if(skip!=null && !skip.isEmpty()) {
+			message+="&skip="+skip;
+		}
+ 		return restTemplate.getForObject(url+"?"+message, ListStoreMessage.class);
+ 
 	}
 
 	public ListStoreMessage getByName(String key) {
