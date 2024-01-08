@@ -68,7 +68,7 @@ public class StoreDataApi {
 		}
 
 		 ListStoreMessage allData = parse.getAllData();
-		 
+		  System.out.println("size of message received "+ allData.results().size());
 		 allData.results().sort((o1, o2) -> {
 			OffsetDateTime odt1 = OffsetDateTime.parse(o1.createdAt());
 			OffsetDateTime odt2 = OffsetDateTime.parse(o2.createdAt());
