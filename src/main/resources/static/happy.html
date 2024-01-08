@@ -18,7 +18,7 @@
 			  $("#mydiv").html("data call start");
              
 			$.ajax({
-				url: '/storeDataApi/getAll?pass='+firstName+',skip='+skip,
+				url: '/storeDataApi/getAll?pass='+firstName+'&skip='+skip,
 				type: 'GET',
 				contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 				success: function (response) {
