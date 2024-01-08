@@ -60,15 +60,14 @@ public class StoreDataApi {
 	}
 
 	@GetMapping(value="getAll",produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ListStoreMessage getAllData(@RequestParam String pass) {
-
+	public @ResponseBody ListStoreMessage getAllData(@RequestParam String pass,@RequestParam(required = false) String skip) {
 
 		if (!pass.equals(this.pass)) {
 			return null;
 		}
-
-		 ListStoreMessage allData = parse.getAllData();
-		  System.out.println("size of message received "+ allData.results().size());
+		
+		 ListStoreMessage allData = parse.getAllData(skip);
+		 System.out.println("size of message received "+ allData.results().size());
 		 allData.results().sort((o1, o2) -> {
 			OffsetDateTime odt1 = OffsetDateTime.parse(o1.createdAt());
 			OffsetDateTime odt2 = OffsetDateTime.parse(o2.createdAt());
